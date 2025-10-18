@@ -1,0 +1,142 @@
+*, *::after, *::before {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #e0e7f1;
+    --secondary: #125dc8;
+    --light: #f4f5f5;
+    --danger: #d81616;
+    --shadow: rgba(8, 47, 102, 0.12);
+    --base: 1rem;
+    --large: calc(var(--base) * 5);
+    --med: calc(var(--base) * 3);
+    --sm: calc(var(--base) * 1.5);
+}
+
+:root.dark {
+    --primary: #12223b;
+    --secondary: #627da6;
+    --light: #003074;
+    --danger: #9f0b0b;
+    --shadow: rgba(152, 174, 205, 0.05);
+}
+
+body {
+    font-family: "Odibee Sans", cursive;
+    background-color: var(--primary);
+    padding: var(--med);
+    display: grid;
+    place-items: center;
+    color: var(--secondary);
+}
+
+.theme-container {
+    padding: var(--sm);
+    display: grid;
+    place-items: center;
+}
+
+.theme {
+    width: 50px;
+    height: 25px;
+    background-color: var(--secondary);
+    border-radius: var(--base);
+    position: relative;
+    cursor: pointer;
+}
+
+.theme::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary);
+    position: absolute;
+    z-index: 3;
+    top: 2px;
+    left: 3px;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+}
+
+.theme::after {
+    content: '';
+    background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='3.25' stroke='yellow' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5'%3E%3C/circle%3E%3Cpath stroke='yellow' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M12 2.75V4.25'%3E%3C/path%3E%3Cpath stroke='yellow' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M17.25 6.75L16.0659 7.93416'%3E%3C/path%3E%3Cpath stroke='yellow' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M21.25 12.0001L19.75 12.0001'%3E%3C/path%3E%3Cpath stroke='yellow' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M17.25 17.2501L16.0659 16.066'%3E%3C/path%3E%3Cpath stroke='yellow' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M12 19.75V21.25'%3E%3C/path%3E%3Cpath stroke='yellow' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M7.9341 16.0659L6.74996 17.25'%3E%3C/path%3E%3Cpath stroke='yellow' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M4.25 12.0001L2.75 12.0001'%3E%3C/path%3E%3Cpath stroke='yellow' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M7.93405 7.93423L6.74991 6.75003'%3E%3C/path%3E%3C/svg%3E");
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    z-index: 2;
+    top: 2px;
+    right: 3px;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+}
+
+.theme.dark::before {
+    transform: translateX(calc(100% + 4px));
+}
+
+.theme.dark::after {
+    transform: translateX(calc(-100% - 4px));
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M18.25 15.7499C17.2352 16.2904 16.23 16.25 15 16.25C10.9959 16.25 7.75 13.0041 7.75 9.00001C7.75 7.77001 7.70951 6.76474 8.25 5.74994C5.96125 6.96891 4.75 9.2259 4.75 12C4.75 16.004 7.99594 19.25 12 19.25C14.7741 19.25 17.031 18.0387 18.25 15.7499Z'%3E%3C/path%3E%3Cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M16 4.75C16 6.95914 14.9591 9 12.75 9C14.9591 9 16 11.0409 16 13.25C16 11.0409 17.0409 9 19.25 9C17.0409 9 16 6.95914 16 4.75Z'%3E%3C/path%3E%3C/svg%3E%0A");
+}
+
+h1 {
+    font-size: var(--med);
+}
+
+.habit-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    padding: var(--sm) var(--med);
+    max-width: 400px;
+    grid-gap: 1rem;
+}
+
+.habit {
+    display: grid;
+    place-items: center;
+}
+
+.habit-btn {
+    width: var(--large);
+    height: var(--large);
+    border-radius: 50%;
+    background-color: var(--primary);
+    border: 6px solid var(--secondary);
+    color: var(--secondary);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.habit-btn:hover {
+    opacity: .8;
+}
+
+.habit-btn.completed {
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+.habit-btn svg {
+    pointer-events: none;
+    width: var(--med);
+    height: var(--med);
+}
+
+.new-habit__add {
+    width: var(--med);
+    height: var(--med);
+    border-radius: 50%;
+    background-color: var(--secondary);
+    color: var(--primary);
+    display: grid;
+    place-items: center;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
