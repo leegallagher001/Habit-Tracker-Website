@@ -1,8 +1,8 @@
-// Query Selectors
+// --- Query Selectors ---
 const habits = document.querySelectorAll('.habit-btn');
 const themeBtn = document.querySelector('#theme');
 
-// Functions
+// --- Functions ---
 
 const storage = {
     saveTheme(value) {
@@ -25,7 +25,7 @@ const ui = {
     }
 }
 
-// Event Listeners
+// --- Event Listeners ---
 
 // Event: window load
 window.addEventListener('DOMContentLoaded', () => {
