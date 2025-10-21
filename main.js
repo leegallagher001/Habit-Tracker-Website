@@ -8,6 +8,9 @@ const newHabitTitle = document.querySelector('#title');
 const icons = document.querySelectorAll('.icon');
 const addBtn = document.querySelector('#add');
 const cancelBtn = document.querySelector('#cancel');
+const deleteBtn = document.querySelector('#deleteHabit');
+const contextMenu = document.querySelector('.context-menu');
+let habitToBeDeleted;
 
 
 // --- Functions ---
@@ -44,6 +47,16 @@ const storage = {
             habit.completed === true ? habit.completed = false : habit.completed = true;
         });
         localStorage.setItem('habitsapp.habits', JSON.stringify(currentHabits));
+    },
+    deleteHabit(id) {
+        const currentHabits = storage.getHabits();
+
+        currentHabits.forEach((habit, index) => {
+            if (habit.id === Number(id)) {
+                currentHabits.splice(index, 1);
+            }
+            localStorage.setItem('habitsapp.habits', JSON.stringify(currentHabits));
+        })
     }
 }
 
@@ -73,11 +86,11 @@ const ui = {
             icon.classList.remove('selected'); // prevents more than one icon being selected at a time
         })
     },
-    addNewHabit(title, icon, id) {
+    addNewHabit(title, icon, id, completed) {
         const habitDiv = document.createElement('div');
         habitDiv.classList.add('habit');
         habitDiv.innerHTML = `
-            <button class="habit-btn ${'completed' === 'true' ? 'completed' : ''}" data-id="${id}" data-title="${title}">
+            <button class="habit-btn ${completed === true ? 'completed' : ''}" data-id="${id}" data-title="${title}">
                 <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
                     ${icon}
                 </svg>
@@ -95,6 +108,11 @@ const ui = {
         });
     console.table(currentHabits);
     },
+    deleteHabit(id) {
+        const habitToDelete = document.querySelector(`[data-id="${id}"]`);
+        habitToDelete.remove();
+        ui.refreshHabits();
+    }
 }
 
 // --- Event Listeners ---
@@ -158,3 +176,23 @@ habitContainer.addEventListener('click', e => {
 //       habit.classList.toggle('completed');
 //    });
 //});
+
+// Event: context menu
+habitContainer.addEventListener('contextmenu', e => {
+    if(!e.target.classList.contains('habit-btn')) return;
+    e.preventDefault();
+    habitToBeDeleted = e.target.dataset.id; // specifies id of habit to be deleted
+    const { clientX: mouseX, clientY: mouseY } = e; // gets mouse coordinates
+    contextMenu.style.top = `${mouseY}px`; // Y position of mouse when clicked
+    contextMenu.style.left = `${mouseX}px`; // X position of mouse when clicked
+    const contextTitle = document.querySelector('#habitTitle');
+    contextTitle.textContent = e.target.dataset.title;
+    contextMenu.classList.add('active');
+})
+
+// Event: delete habit button
+deleteBtn.addEventListener('click', () => {
+    storage.deleteHabit(habitToBeDeleted);
+    ui.deleteHabit(habitToBeDeleted);
+    contextMenu.classList.remove('active');
+})
